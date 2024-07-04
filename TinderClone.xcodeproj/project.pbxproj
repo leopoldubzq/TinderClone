@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		02DA9BA32C246FEA00FC9353 /* TinderCloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DA9BA22C246FEA00FC9353 /* TinderCloneApp.swift */; };
-		02DA9BA52C246FEA00FC9353 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DA9BA42C246FEA00FC9353 /* ContentView.swift */; };
 		02DA9BA72C246FEC00FC9353 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02DA9BA62C246FEC00FC9353 /* Assets.xcassets */; };
 		02DA9BAA2C246FEC00FC9353 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02DA9BA92C246FEC00FC9353 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -16,10 +15,52 @@
 /* Begin PBXFileReference section */
 		02DA9B9F2C246FEA00FC9353 /* TinderClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02DA9BA22C246FEA00FC9353 /* TinderCloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCloneApp.swift; sourceTree = "<group>"; };
-		02DA9BA42C246FEA00FC9353 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		02DA9BA62C246FEC00FC9353 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02DA9BA92C246FEC00FC9353 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0224F50F2C2EECCD006D9659 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Constants.swift,
+				TagLayout.swift,
+			);
+			target = 02DA9B9E2C246FEA00FC9353 /* TinderClone */;
+		};
+		02DA9BB22C246FFA00FC9353 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Home/HomeView.swift,
+				Home/Subviews/InterestRowView.swift,
+				Home/Subviews/UserCardView.swift,
+				UserDetail/Subviews/ImageDetailView.swift,
+				UserDetail/UserDetailView.swift,
+			);
+			target = 02DA9B9E2C246FEA00FC9353 /* TinderClone */;
+		};
+		02DA9BBA2C24835D00FC9353 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				User.swift,
+			);
+			target = 02DA9B9E2C246FEA00FC9353 /* TinderClone */;
+		};
+		02DA9BC22C2490C300FC9353 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Route.swift,
+			);
+			target = 02DA9B9E2C246FEA00FC9353 /* TinderClone */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0224F50C2C2EECC5006D9659 /* Utilis */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (0224F50F2C2EECCD006D9659 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Utilis; sourceTree = "<group>"; };
+		02DA9BB02C246FF200FC9353 /* Presentation */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (02DA9BB22C246FFA00FC9353 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Presentation; sourceTree = "<group>"; };
+		02DA9BB72C24835500FC9353 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (02DA9BBA2C24835D00FC9353 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
+		02DA9BBE2C2490BB00FC9353 /* Navigation */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (02DA9BC22C2490C300FC9353 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Navigation; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		02DA9B9C2C246FEA00FC9353 /* Frameworks */ = {
@@ -51,8 +92,11 @@
 		02DA9BA12C246FEA00FC9353 /* TinderClone */ = {
 			isa = PBXGroup;
 			children = (
+				0224F50C2C2EECC5006D9659 /* Utilis */,
+				02DA9BBE2C2490BB00FC9353 /* Navigation */,
+				02DA9BB72C24835500FC9353 /* Models */,
+				02DA9BB02C246FF200FC9353 /* Presentation */,
 				02DA9BA22C246FEA00FC9353 /* TinderCloneApp.swift */,
-				02DA9BA42C246FEA00FC9353 /* ContentView.swift */,
 				02DA9BA62C246FEC00FC9353 /* Assets.xcassets */,
 				02DA9BA82C246FEC00FC9353 /* Preview Content */,
 			);
@@ -137,7 +181,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02DA9BA52C246FEA00FC9353 /* ContentView.swift in Sources */,
 				02DA9BA32C246FEA00FC9353 /* TinderCloneApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
