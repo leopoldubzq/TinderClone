@@ -14,6 +14,7 @@ Welcome to the Tinder Clone iOS application! This app is built using Swift and S
   <img src="https://github.com/leopoldubzq/TinderClone/assets/60520591/540b8598-7185-4981-b0bc-8e62e25c5534" width="250"/>
   <img src="https://github.com/leopoldubzq/TinderClone/assets/60520591/aa38ce19-3488-4405-b296-070edddfd694" width="300"/>
 </div>
+
 ## Features
 - Swipe left or right to like or dislike user profiles.
 - View detailed user profiles, including bio and interests.
