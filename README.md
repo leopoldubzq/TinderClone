@@ -22,5 +22,5 @@ Welcome to the Tinder Clone iOS application! This app is built using Swift and S
 
 ## Requirements
 
-- Xcode 16 (beta)
+- Xcode 16
 - iOS 18
