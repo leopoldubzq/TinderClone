@@ -3,18 +3,19 @@ import SwiftUI
 struct HomeView: View {
     
     @State private var users: [User] = User.mockData
-    @State private var route: [Route] = []
-    @Namespace private var userDetailAnimation
+    @Environment(NavigationManager.self) private var navigationManager
+    @Namespace private var userDetailNamespace
     
     var body: some View {
-        NavigationStack(path: $route) {
+        @Bindable var navigationManager = navigationManager
+        NavigationStack(path: $navigationManager.route) {
             VStack {
                 HStack {
                     Image("tinder_logo")
                         .resizable()
                         .frame(width: 40, height: 40)
                         .aspectRatio(contentMode: .fit)
-                    Text("Tinder")
+                    Text("Avenger")
                         .font(.title)
                         .fontWeight(.bold)
                 }
@@ -22,21 +23,28 @@ struct HomeView: View {
                 if !users.isEmpty {
                     ZStack {
                         ForEach(users.reversed(), id: \.id) { user in
-                            let cardIsVisible = route.isEmpty && users.reversed().first?.id == user.id
-                            UserCardView(user: user,
-                                         userDetailAnimation: userDetailAnimation,
-                                         cardIsVisible: cardIsVisible,
-                                         onSwipe: {
-                                remove(user)
-                            }, onTap: { visibleIndex in
-                                route.append(.userDetail(user: user, imageIndex: visibleIndex))
-                            })
+                            let cardIsVisible = cardIsVisible(user: user)
+                            UserCardView(
+                                user: user,
+                                userDetailNamespace: userDetailNamespace,
+                                cardIsVisible: cardIsVisible,
+                                onSwipe: { remove(user) },
+                                onTap: { visibleIndex in
+                                    navigate(
+                                        to: user,
+                                        visibleIndex: visibleIndex
+                                    )
+                                }
+                            )
                             .frame(height: 600)
                             .padding(.horizontal)
                         }
                     }
                 } else {
-                    ContentUnavailableView("No users", systemImage: "questionmark")
+                    ContentUnavailableView(
+                        "No users",
+                        systemImage: "questionmark"
+                    )
                 }
                 Spacer()
             }
@@ -44,25 +52,42 @@ struct HomeView: View {
             .navigationDestination(for: Route.self) { destination in
                 switch destination {
                 case .userDetail(let user, let imageIndex):
-                    UserDetailView(user: user, imageIndex: imageIndex)
-                        .navigationTransition(
-                            .zoom(
-                                sourceID: user.id,
-                                in: userDetailAnimation
-                            )
+                    UserDetailView(
+                        user: user,
+                        imageIndex: imageIndex
+                    )
+                    .navigationTransition(
+                        .zoom(
+                            sourceID: user.id,
+                            in: userDetailNamespace
                         )
+                    )
                 }
             }
             .frame(maxHeight: .infinity)
-            .background(Color("CustomBackground"))
+            .background(Color.customBackground)
         }
     }
     
     private func remove(_ user: User) {
         users.removeAll(where: { $0.id == user.id })
     }
+    
+    private func cardIsVisible(user: User) -> Bool {
+        navigationManager.route.isEmpty && users.reversed().first?.id == user.id
+    }
+    
+    private func navigate(to user: User, visibleIndex: Int) {
+        navigationManager.push(
+            .userDetail(
+                user: user,
+                imageIndex: visibleIndex
+            )
+        )
+    }
 }
 
 #Preview {
     HomeView()
+        .environment(NavigationManager())
 }
