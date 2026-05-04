@@ -10,15 +10,6 @@ struct HomeView: View {
         @Bindable var navigationManager = navigationManager
         NavigationStack(path: $navigationManager.route) {
             VStack {
-                HStack {
-                    Image("tinder_logo")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .aspectRatio(contentMode: .fit)
-                    Text("Avenger")
-                        .font(.title)
-                        .fontWeight(.bold)
-                }
                 Spacer()
                 if !users.isEmpty {
                     ZStack {
@@ -48,7 +39,20 @@ struct HomeView: View {
                 }
                 Spacer()
             }
-            .toolbarVisibility(.hidden, for: .navigationBar)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 6) {
+                        Image("tinder_logo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 28, height: 28)
+                        Text("Avenger")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                    }
+                }
+            }
             .navigationDestination(for: Route.self) { destination in
                 switch destination {
                 case .userDetail(let user, let imageIndex):

@@ -225,15 +225,14 @@ struct UserCardView: View {
         HStack(spacing: 2) {
             Text(showFullInterests ? "Show less" : "Show more")
                 .font(.system(size: 14))
-                .foregroundStyle(Color(uiColor: .label))
             Image(systemName: "chevron.down")
-                .foregroundStyle(colorScheme == .dark ? .white : .black)
                 .scaleEffect(0.8)
                 .rotationEffect(.degrees(showFullInterests ? -180 : 0))
         }
         .padding(6)
         .padding(.horizontal, 3)
-        .glassBackground(in: Capsule(), fallbackMaterial: .thinMaterial)
+        .foregroundStyle(colorScheme == .dark ? .white : .black)
+        .background(.regularMaterial, in: .capsule)
         .overlay(Capsule().stroke(Color.primary, lineWidth: 1))
         .onTapGesture {
             showFullInterests.toggle()
@@ -287,23 +286,12 @@ struct UserCardView: View {
     private func ActionButtons() -> some View {
         GeometryReader { geo in
             let size = geo.size
-            Group {
-                if #available(iOS 26.0, *) {
-                    GlassEffectContainer(spacing: 24) {
-                        HStack(spacing: 32) {
-                            rejectButton(size: size).buttonStyle(.glass)
-                            starButton(size: size).buttonStyle(.glassProminent)
-                            likeButton(size: size).buttonStyle(.glass)
-                        }
-                    }
-                } else {
-                    HStack(spacing: 32) {
-                        rejectButton(size: size)
-                        starButton(size: size)
-                        likeButton(size: size)
-                    }
-                }
+            HStack(spacing: 32) {
+                rejectButton(size: size)
+                starButton(size: size)
+                likeButton(size: size)
             }
+            .buttonStyle(.plain)
             .frame(maxWidth: .infinity)
         }
         .frame(height: 44)

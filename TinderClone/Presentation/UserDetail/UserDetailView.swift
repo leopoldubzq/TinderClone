@@ -8,9 +8,6 @@ struct UserDetailView: View {
     @State private var scrollOffsetY: CGFloat = .zero
     @State private var scrollOffsetX: CGFloat = .zero
     @State private var visibleHorizontalIndex: Int = 0
-    @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dismiss) private var dismiss
-    
     @State private var scrollPosition: ScrollPosition = .init(idType: String.self)
     @State private var selectedImage: String?
     @Namespace private var imageDetailAnimation
@@ -44,7 +41,11 @@ struct UserDetailView: View {
                     .scrollIndicators(.hidden)
                     .scrollTargetBehavior(.paging)
                     .scrollClipDisabled()
-                    .frame(height: 600)
+                    .frame(
+                        height: proxy.size.height * 0.65 +
+                        proxy.safeAreaInsets.top +
+                        proxy.safeAreaInsets.bottom
+                    )
                     .overlay(alignment: .bottom) {
                         if user.pictureNames.count > 1 {
                             HStack {
@@ -56,7 +57,7 @@ struct UserDetailView: View {
                                 }
                             }
                             .padding(8)
-                            .glassBackground(in: Capsule(), fallbackMaterial: .ultraThinMaterial)
+                            .background(.ultraThinMaterial, in: Capsule())
                             .padding(.bottom, 8)
                         }
                     }
@@ -98,41 +99,9 @@ struct UserDetailView: View {
             }
             .scrollIndicators(.hidden)
             .ignoresSafeArea()
-            .toolbarVisibility(.hidden, for: .navigationBar)
-            .overlay(alignment: .top) {
-                HStack {
-                    Button { dismiss() } label: {
-                        Image(systemName: "chevron.left")
-                    }
-                    .tint(colorScheme == .light ? (scrollOffsetY > 15 ? .black : .white) : .white)
-                    .fontWeight(.semibold)
-                    .animation(.easeIn(duration: 0.1), value: scrollOffsetY)
-                    Spacer()
-                }
-                .overlay {
-                    Text(user.name)
-                        .font(.headline)
-                        .foregroundStyle(.primary)
-                        .animation(.easeIn(duration: 0.1), value: scrollOffsetY)
-                        .frame(height: 45)
-                        .opacity(min(1, max(0, scrollOffsetY * 0.08)))
-                }
-                .padding([.horizontal, .bottom])
-                .padding(.top, 8)
-                .background {
-                    Group {
-                        if #available(iOS 26.0, *) {
-                            Color.clear.glassEffect(.regular, in: Rectangle())
-                        } else {
-                            Rectangle()
-                                .fill(colorScheme == .dark ? .ultraThinMaterial : .thinMaterial)
-                        }
-                    }
-                    .opacity(scrollOffsetY > 0 ? min(1, scrollOffsetY * 0.08) : 0.001)
-                    .contentShape(Rectangle())
-                    .ignoresSafeArea(edges: .top)
-                }
-            }
+            .navigationTitle(user.name)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarVisibility(selectedImage != nil ? .hidden : .visible, for: .navigationBar)
             .onScrollGeometryChange(for: CGFloat.self) { geometry in
                 geometry.contentOffset.y
             } action: { _, newValue in
