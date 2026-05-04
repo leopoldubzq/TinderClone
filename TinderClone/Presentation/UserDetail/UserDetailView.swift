@@ -39,7 +39,6 @@ struct UserDetailView: View {
                                     }
                             }
                         }
-                        
                     }
                     .scrollPosition($scrollPosition)
                     .scrollIndicators(.hidden)
@@ -57,7 +56,7 @@ struct UserDetailView: View {
                                 }
                             }
                             .padding(8)
-                            .background(Capsule().fill(Color("SecondaryCustomBackground")))
+                            .glassBackground(in: Capsule(), fallbackMaterial: .ultraThinMaterial)
                             .padding(.bottom, 8)
                         }
                     }
@@ -66,7 +65,6 @@ struct UserDetailView: View {
                     } action: { _, newValue in
                         scrollOffsetX = newValue
                     }
-                    
                     VStack(alignment: .leading, spacing: 10) {
                         VStack(alignment: .leading) {
                             Text("\(user.name), \(user.age)")
@@ -121,13 +119,19 @@ struct UserDetailView: View {
                 }
                 .padding([.horizontal, .bottom])
                 .padding(.top, 8)
-                .background(
-                    Rectangle()
-                        .fill(colorScheme == .dark ? .ultraThinMaterial : .thinMaterial)
-                        .opacity(scrollOffsetY > 0 ? min(1, scrollOffsetY * 0.08) : 0.001)
-                        .contentShape(Rectangle())
-                        .ignoresSafeArea()
-                )
+                .background {
+                    Group {
+                        if #available(iOS 26.0, *) {
+                            Color.clear.glassEffect(.regular, in: Rectangle())
+                        } else {
+                            Rectangle()
+                                .fill(colorScheme == .dark ? .ultraThinMaterial : .thinMaterial)
+                        }
+                    }
+                    .opacity(scrollOffsetY > 0 ? min(1, scrollOffsetY * 0.08) : 0.001)
+                    .contentShape(Rectangle())
+                    .ignoresSafeArea(edges: .top)
+                }
             }
             .onScrollGeometryChange(for: CGFloat.self) { geometry in
                 geometry.contentOffset.y
@@ -145,7 +149,7 @@ struct UserDetailView: View {
                 scrollPosition.scrollTo(id: user.pictureNames[imageIndex])
             }
         }
-        .background(Color("CustomBackground"))
+        .background(Color.customBackground)
         
     }
     
@@ -167,8 +171,10 @@ struct UserDetailView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .matchedGeometryEffect(id: imageName, in: imageDetailAnimation)
-                .frame(width: proxy.size.width,
-                       height: proxy.size.height + max(0, -scrollOffsetY))
+                .frame(
+                    width: proxy.size.width,
+                    height: proxy.size.height + max(0, -scrollOffsetY)
+                )
                 .clipped()
                 .contentShape(.rect)
                 .overlay(alignment: .top) {

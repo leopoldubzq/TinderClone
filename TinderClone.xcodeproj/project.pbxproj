@@ -25,6 +25,7 @@
 			membershipExceptions = (
 				Constants.swift,
 				TagLayout.swift,
+				"View+GlassEffect.swift",
 			);
 			target = 02DA9B9E2C246FEA00FC9353 /* TinderClone */;
 		};
@@ -49,6 +50,8 @@
 		02DA9BC22C2490C300FC9353 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				NavigationManager.swift,
+				Protocols/NavigationManageable.swift,
 				Route.swift,
 			);
 			target = 02DA9B9E2C246FEA00FC9353 /* TinderClone */;

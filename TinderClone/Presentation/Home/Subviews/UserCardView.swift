@@ -39,27 +39,16 @@ enum SwipeTextKind {
 struct UserCardView: View {
     
     var user: User
-    var userDetailAnimation: Namespace.ID
+    var userDetailNamespace: Namespace.ID
     @State var cardIsVisible: Bool = true
     var onSwipe: () -> ()
     var onTap: (Int) -> ()
-    
-    init(user: User, userDetailAnimation: Namespace.ID, 
-         cardIsVisible: Bool, onSwipe: @escaping () -> Void,
-         onTap: @escaping (Int) -> Void) {
-        self.user = user
-        self.userDetailAnimation = userDetailAnimation
-        self._cardIsVisible = State(wrappedValue: cardIsVisible)
-        self.onSwipe = onSwipe
-        self.onTap = onTap
-    }
     
     @State private var dragTranslation: CGFloat = .zero
     @State private var visiblePictureIndex: Int = 0
     @GestureState private var isLongPressing: Bool = false
     @State private var dragDirection: DragDirection = .none
     @State private var showFullInterests: Bool = false
-    
     @Environment(\.colorScheme) private var colorScheme
     
     private var dragGesture: some Gesture {
@@ -117,7 +106,6 @@ struct UserCardView: View {
                         Text("\(user.distance) \(user.distance == 1 ? "kilometer" : "kilometers") away")
                             .font(.system(size: 15))
                         
-                        
                         TagLayout(alignment: .leading, spacing: 6) {
                             ForEach(getUserInterests(), id: \.self) { interest in
                                 InterestRowView(interest: interest)
@@ -126,30 +114,7 @@ struct UserCardView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
                         if user.interests.count > 5 {
-                            HStack(spacing: 2) {
-                                Text(showFullInterests ? "Show less" : "Show more")
-                                    .font(.system(size: 14))
-                                    .foregroundStyle(Color.init(uiColor: .label))
-                                Image(systemName: "chevron.down")
-                                    .foregroundStyle(colorScheme == .dark ? .white : .black)
-                                    .scaleEffect(0.8)
-                                    .rotationEffect(.degrees(showFullInterests ? -180 : 0))
-                            }
-                            
-                            .padding(6)
-                            .padding(.horizontal, 3)
-                            .background(
-                                Capsule()
-                                    .fill(Color.init(uiColor: .tertiarySystemGroupedBackground))
-                            )
-                            .background(
-                                Capsule()
-                                    .stroke(lineWidth: 2)
-                                    .fill(Color.primary)
-                            )
-                            .onTapGesture {
-                                showFullInterests.toggle()
-                            }
+                            ShowMoreButton()
                         }
                         ActionButtons()
                     }
@@ -178,13 +143,10 @@ struct UserCardView: View {
                 .onTapGesture {
                     onTap(visiblePictureIndex)
                 }
-                .matchedTransitionSource(id: user.id, in: userDetailAnimation) { configuration in
-                    configuration
-                        .clipShape(.rect(cornerRadius: 12))
-                        .background(Color("CustomBackground"))
-                }
                 .offset(x: dragTranslation)
-                .rotationEffect(.degrees(max(-10, min(10, dragTranslation * 0.05))))
+                .rotationEffect(
+                    .degrees(max(-10, min(10, dragTranslation * 0.05)))
+                )
                 .highPriorityGesture(dragGesture)
                 .onReceive(timer) { _ in
                     handleVisibleImageTimeProgress()
@@ -195,6 +157,10 @@ struct UserCardView: View {
                 .onAppear {
                     cardIsVisible = true
                 }
+                .matchedTransitionSource(
+                    id: user.id,
+                    in: userDetailNamespace
+                )
         }
     }
     
@@ -255,49 +221,88 @@ struct UserCardView: View {
     }
     
     @ViewBuilder
-    private func ActionButtons() -> some View {
-        GeometryReader {
-            let size = $0.size
-            VStack(alignment: .center) {
-                HStack(spacing: 32) {
-                    Button { swipe(.left) } label: {
-                        Image("reject_icon")
-                            .resizable()
-                            .renderingMode(.template)
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundStyle(dragDirection == .left ? .white : .red)
-                            .frame(width: 18, height: 18)
-                            .background {
-                                Circle()
-                                    .fill(dragDirection == .left ? .red : .white)
-                                    .frame(width: size.height, height: size.height)
-                            }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .scaleEffect(1.2 + min(0.25, max(0, -dragTranslation * 0.008)))
-                    
-                    Button {} label: {
-                        Image(systemName: "star.fill")
-                            .foregroundStyle(.blue.gradient)
-                            .frame(width: size.height, height: size.height)
-                            .background {
-                                Circle()
-                                    
-                            }
-                    }
-                    .frame(maxWidth: .infinity)
-                    
-                    Button { swipe(.right) } label: {
-                        Image(systemName: "heart.fill")
-                            .foregroundStyle(dragDirection == .right ? Color.white : Color.green)
-                            .frame(width: size.height, height: size.height)
-                            .animation(.spring(duration: 0.2), value: dragDirection)
-                            .background { Circle().fill(dragDirection == .right ? .green : .white) }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .scaleEffect(1.2 + min(0.25, max(0, dragTranslation * 0.008)))
+    private func ShowMoreButton() -> some View {
+        HStack(spacing: 2) {
+            Text(showFullInterests ? "Show less" : "Show more")
+                .font(.system(size: 14))
+                .foregroundStyle(Color(uiColor: .label))
+            Image(systemName: "chevron.down")
+                .foregroundStyle(colorScheme == .dark ? .white : .black)
+                .scaleEffect(0.8)
+                .rotationEffect(.degrees(showFullInterests ? -180 : 0))
+        }
+        .padding(6)
+        .padding(.horizontal, 3)
+        .glassBackground(in: Capsule(), fallbackMaterial: .thinMaterial)
+        .overlay(Capsule().stroke(Color.primary, lineWidth: 1))
+        .onTapGesture {
+            showFullInterests.toggle()
+        }
+    }
+
+    @ViewBuilder
+    private func rejectButton(size: CGSize) -> some View {
+        Button { swipe(.left) } label: {
+            Image("reject_icon")
+                .resizable()
+                .renderingMode(.template)
+                .aspectRatio(contentMode: .fit)
+                .foregroundStyle(dragDirection == .left ? .white : .red)
+                .frame(width: 18, height: 18)
+                .background {
+                    Circle()
+                        .fill(dragDirection == .left ? .red : .white)
+                        .frame(width: size.height, height: size.height)
                 }
-                
+        }
+        .frame(maxWidth: .infinity)
+        .scaleEffect(1.2 + min(0.25, max(0, -dragTranslation * 0.008)))
+    }
+
+    @ViewBuilder
+    private func starButton(size: CGSize) -> some View {
+        Button {} label: {
+            Image(systemName: "star.fill")
+                .foregroundStyle(.blue.gradient)
+                .frame(width: size.height, height: size.height)
+                .background { Circle() }
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    @ViewBuilder
+    private func likeButton(size: CGSize) -> some View {
+        Button { swipe(.right) } label: {
+            Image(systemName: "heart.fill")
+                .foregroundStyle(dragDirection == .right ? Color.white : Color.green)
+                .frame(width: size.height, height: size.height)
+                .animation(.spring(duration: 0.2), value: dragDirection)
+                .background { Circle().fill(dragDirection == .right ? .green : .white) }
+        }
+        .frame(maxWidth: .infinity)
+        .scaleEffect(1.2 + min(0.25, max(0, dragTranslation * 0.008)))
+    }
+
+    @ViewBuilder
+    private func ActionButtons() -> some View {
+        GeometryReader { geo in
+            let size = geo.size
+            Group {
+                if #available(iOS 26.0, *) {
+                    GlassEffectContainer(spacing: 24) {
+                        HStack(spacing: 32) {
+                            rejectButton(size: size).buttonStyle(.glass)
+                            starButton(size: size).buttonStyle(.glassProminent)
+                            likeButton(size: size).buttonStyle(.glass)
+                        }
+                    }
+                } else {
+                    HStack(spacing: 32) {
+                        rejectButton(size: size)
+                        starButton(size: size)
+                        likeButton(size: size)
+                    }
+                }
             }
             .frame(maxWidth: .infinity)
         }
@@ -331,14 +336,14 @@ struct UserCardView: View {
     }
 }
 
-#Preview {
-    @Previewable @Namespace var userDetailAnimation
-    UserCardView(user: User.mockData.first!,
-                 userDetailAnimation: userDetailAnimation,
-                 cardIsVisible: true,
-                 onSwipe: {}, onTap: { _ in })
-        .frame(height: 600)
-        .padding(.horizontal)
-}
+//#Preview {
+//    @Previewable @Namespace var userDetailNamespace
+//    UserCardView(user: User.mockData.first!,
+//                 userDetailNamespace: userDetailNamespace,
+//                 cardIsVisible: true,
+//                 onSwipe: {}, onTap: { _ in })
+//        .frame(height: 600)
+//        .padding(.horizontal)
+//}
 
 
