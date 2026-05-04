@@ -5,7 +5,7 @@
 <h1 align="center">Tinder Clone</h1>
 
 <p align="center">
-  A Tinder-style swipe deck built with SwiftUI — themed around the Marvel Avengers.
+  A Tinder-style swipe deck built with SwiftUI.
 </p>
 
 <p align="center">
