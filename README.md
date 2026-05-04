@@ -2,7 +2,7 @@
   <img src="https://github.com/leopoldubzq/TinderClone/assets/60520591/317dceb6-ae40-43c8-8d8a-1ffcf5b28f0a" width="180"/>
 </p>
 
-<h1 align="center">Avenger Match</h1>
+<h1 align="center">Tinder Clone</h1>
 
 <p align="center">
   A Tinder-style swipe deck built with SwiftUI — themed around the Marvel Avengers.
