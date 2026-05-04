@@ -18,59 +18,59 @@ struct User: Identifiable, Hashable {
     static var mockData: [Self] {
         [
             User(
-                username: "artlover456",
-                name: "Jane",
+                username: "ironman",
+                name: "Tony Stark",
                 bio: """
-                Hi, I'm Jane! 🎨 I'm a passionate artist and coffee enthusiast ☕. When I'm not at my easel, you can find me exploring the city's hidden gems and cozy cafes. I love immersing myself in the art scene, whether it's visiting a new museum exhibit 🖼️ or attending a local art fair. Let's explore the city together, share our favorite coffee spots, and maybe even sketch a bit while enjoying a latte. Looking forward to meeting someone who shares my love for creativity and adventure!
+                Genius, billionaire, playboy, philanthropist. 🏗️ When I'm not saving the world in my high-tech suit, I'm pushing the boundaries of technology and innovation. Love fast cars, good whiskey 🥃, and a good challenge. If you can keep up with my wit and intelligence, we’ll get along just fine. Just don’t try to hack my suit. 🚀
                 """,
-                pictureNames: ["profile_image_1", "profile_image_1_detail_1", "profile_image_1_detail_2"],
-                age: 27,
+                pictureNames: ["tony_stark_1", "tony_stark_2", "tony_stark_3"],
+                age: 48,
+                distance: 5,
+                interests: ["Technology", "Engineering", "Flying", "AI Development", "Saving the World", "Leadership"]
+            ),
+            User(
+                username: "spidey",
+                name: "Peter Parker",
+                bio: """
+                Just your friendly neighborhood Spider-Man! 🕷️ Swinging through life one web at a time. By day, I’m a photographer and student 📸, but when duty calls, I’m out there keeping the city safe. I love science, bad puns, and stopping bad guys. Looking for someone to share a slice of pizza 🍕 and a good conversation about superheroes.
+                """,
+                pictureNames: ["peter_parker_1", "peter_parker_2", "peter_parker_3"],
+                age: 18,
                 distance: 10,
-                interests: ["Art", "Coffee", "Museum Hopping", "Sketching", "Watching TV", "Reading", "Yoga"]
+                interests: ["Photography", "Science", "Swinging Around", "Pizza", "Crime Fighting", "Engineering"]
             ),
             User(
-                username: "foodie101",
-                name: "Emily",
+                username: "godofthunder",
+                name: "Thor Odinson",
                 bio: """
-                Hello! I'm Emily, a food critic and amateur chef 👩‍🍳. My life revolves around food, whether it's critiquing the latest restaurant in town 🍽️ or whipping up a new recipe in my kitchen. I believe that food is a universal language that brings people together. Let's cook something amazing together, explore the best eateries, and enjoy a cozy night in with some Netflix 📺. If you love good food and great company, we'll get along just fine!
+                Son of Odin, God of Thunder ⚡ and protector of the realms. Whether I’m wielding Mjolnir or Stormbreaker, I’m always ready for battle. I enjoy feasting 🍖, storytelling, and a good fight. If you can handle a little lightning and appreciate the art of combat, we’ll get along splendidly. Let us share a drink and tales of glory!
                 """,
-                pictureNames: ["profile_picture_0"],
-                age: 25,
+                pictureNames: ["thor_1", "thor_2", "thor_3"],
+                age: 1500,
                 distance: 15,
-                interests: ["Cooking", "Food Critiquing", "Netflix & Chill", "Baking"]
+                interests: ["Battles", "Feasting", "Drinking", "Thunderstorms", "Protecting Asgard", "Leadership"]
             ),
             User(
-                username: "coolguy123",
-                name: "John",
+                username: "blackwidow",
+                name: "Natasha Romanoff",
                 bio: """
-                Hey, I'm John! 🏞️ I'm an outdoor enthusiast who loves hiking and seeking out new adventures. Whether it's climbing a challenging trail, camping under the stars 🌌, or rock climbing, I'm always up for a challenge. Fitness is a big part of my life, and I love pushing my limits. Looking for someone who enjoys the great outdoors and isn't afraid to get their hands dirty. Let's conquer the next mountain together!
+                Ex-assassin, top-tier spy, and expert in hand-to-hand combat. 🔥 I can take down enemies before they even see me coming. When I'm not on a mission, I enjoy a quiet drink, martial arts, and keeping my past where it belongs. Looking for someone who can handle a bit of mystery and isn’t afraid of a strong woman.
                 """,
-                pictureNames: ["profile_picture_2"],
-                age: 29,
+                pictureNames: ["black_widow_1", "black_widow_2", "black_widow_3"],
+                age: 35,
                 distance: 20,
-                interests: ["Hiking", "Outdoor Adventures", "Fitness", "Camping", "Rock Climbing", "Trail Running"]
+                interests: ["Espionage", "Martial Arts", "Tactical Strategy", "Motorcycles", "Red Room Secrets", "Crime Fighting"]
             ),
             User(
-                username: "techguru789",
-                name: "Alex",
+                username: "captain",
+                name: "Steve Rogers",
                 bio: """
-                Hi, I'm Alex, your friendly neighborhood tech geek 🤓 and gamer 🎮. My passions include everything from coding the next big app 💻 to marathoning the latest video games. I'm always up-to-date with the latest in tech and love tinkering with new gadgets. I'm looking for someone who can share my enthusiasm for technology and gaming, and maybe join me for a co-op session or two. Let's build something great together!
+                A soldier out of time, still adjusting to the modern world. 🏅 I believe in honor, justice, and doing the right thing, no matter the cost. If you enjoy long walks (or runs) in Washington D.C., 1940s music 🎶, and standing up for what’s right, we’ll get along. Let’s go grab a coffee and talk about what makes a hero.
                 """,
-                pictureNames: ["profile_picture_4"],
-                age: 31,
-                distance: 25,
-                interests: ["Technology", "Gaming", "Coding", "Robotics"]
-            ),
-            User(
-                username: "travelbug202",
-                name: "Michael",
-                bio: """
-                Hi there! I'm Michael, a world traveler 🌍 and photographer 📷. My life is a constant adventure as I'm always planning my next trip ✈️. Capturing the beauty of different cultures and landscapes through my lens is my greatest passion. I'm also a blogger and love sharing my travel experiences with the world. If you're someone who enjoys exploring new places and cherishes every moment, let's embark on this journey together and create unforgettable memories.
-                """,
-                pictureNames: ["profile_picture_5"],
-                age: 34,
-                distance: 30,
-                interests: ["Photography", "Blogging", "Playing the guitar"]
+                pictureNames: ["steve_rogers_1", "steve_rogers_2", "steve_rogers_3"],
+                age: 105,
+                distance: 8,
+                interests: ["Justice", "Training", "Leadership", "Shield Throwing", "Dancing", "Martial Arts"]
             )
         ]
     }
