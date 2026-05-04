@@ -13,7 +13,7 @@ struct InterestRowView: View {
             .background {
                 if Constants.matches(interest) {
                     Capsule()
-                        .fill(Color("Tinder").gradient)
+                        .fill(Color.tinder.gradient)
                 } else {
                     Capsule()
                         .fill(Color.init(uiColor: .tertiarySystemGroupedBackground))
@@ -22,13 +22,13 @@ struct InterestRowView: View {
     }
 }
 
-#Preview {
-    @Previewable @Namespace var userDetailAnimation
-    UserCardView(user: User.mockData.first!,
-                 userDetailAnimation: userDetailAnimation,
-                 cardIsVisible: true,
-                 onSwipe: {},
-                 onTap: { _ in })
-    .frame(height: 600)
-    .padding(.horizontal)
-}
+//#Preview {
+//    @Previewable @Namespace var userDetailNamespace
+//    UserCardView(user: User.mockData.first!,
+//                 userDetailNamespace: userDetailNamespace,
+//                 cardIsVisible: true,
+//                 onSwipe: {},
+//                 onTap: { _ in })
+//    .frame(height: 600)
+//    .padding(.horizontal)
+//}
