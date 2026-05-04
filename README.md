@@ -12,7 +12,6 @@
   <img src="https://img.shields.io/badge/platform-iOS%2026-black?style=flat-square&logo=apple"/>
   <img src="https://img.shields.io/badge/swift-5.0-orange?style=flat-square&logo=swift"/>
   <img src="https://img.shields.io/badge/SwiftUI-blue?style=flat-square"/>
-  <img src="https://img.shields.io/badge/Liquid%20Glass-%F0%9F%AB%A7-blueviolet?style=flat-square"/>
 </p>
 
 ---
@@ -43,7 +42,6 @@
 - **Zoom transition** — tap a card to open the profile with a native iOS 18 hero animation
 - **Fullscreen photo viewer** — drag down to dismiss; matched-geometry transition
 - **Interest pills** — custom flow layout with highlighted "matched" tags
-- **Liquid Glass UI** — native iOS 26 materials throughout the interface
 - **Dark mode support** — fully adaptive color scheme
 
 ---
@@ -57,7 +55,6 @@
 | Navigation | `NavigationStack` + custom `NavigationManager` |
 | Transitions | `matchedTransitionSource` · `matchedGeometryEffect` · `.navigationTransition(.zoom)` |
 | Layout | Custom `Layout` (flow/tag layout) |
-| Materials | iOS 26 `glassEffect` |
 
 ---
 
